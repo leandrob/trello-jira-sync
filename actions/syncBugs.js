@@ -55,7 +55,13 @@ module.exports = function (trelloBoard, jiraProject) {
       }
 
       return trello.createCard(trelloBoard, 'Bugs', details).then((card) => {
-        return trello.addLabelToCard(trelloBoard, card.id, 'Bug')
+        return trello.addLabelToCard(trelloBoard, card.id, 'Bug').then((c) => {
+          if (!bug.epic) {
+            return c;
+          }
+
+          return trello.addLabelToCard(trelloBoard, card.id, bug.epic);
+        })
       })
     });
 

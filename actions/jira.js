@@ -92,42 +92,47 @@ api.transitionStory = function (project, storyKey, transitionName) {
 
 api.getBugs = function (project) {
   return new Promise(function (resolve, reject) {
+    return api.getEpics(project).then((epics) => {
+      let fields = [
+        'summary',
+        'description',
+        'customfield_10025', //Steps to reproduce
+        'customfield_10026', //Spected behaviour
+        'customfield_10601', //Env
+        'attachment',
+        'customfield_10400', //Severity,
+        'customfield_10016', //Epic
+      ];
 
-    let fields = [
-      'summary',
-      'description',
-      'customfield_10025', //Steps to reproduce
-      'customfield_10026', //Spected behaviour
-      'customfield_10601', //Env
-      'attachment',
-      'customfield_10400', //Severity
-    ];
+      jira.searchJira('project="' + project + '" AND issuetype = "Bug" AND status = "Open"', { fields: fields }, function (err, result) {
+        if (err) {
+          return reject(err);
+        }
 
-    jira.searchJira('project="' + project + '" AND issuetype = "Bug" AND status = "Open"', { fields: fields }, function (err, result) {
-      if (err) {
-        return reject(err);
-      }
+        if (!result || !result.issues || result.issues.lenght === 0) {
+          return reject('No open Bugs where found!');
+        }
 
-      if (!result || !result.issues || result.issues.lenght === 0) {
-        return reject('No open Bugs where found!');
-      }
+        return resolve(
+          result.issues.map((i) => {
+            let bugEpic = epics.filter((e) => e.key === i.fields.customfield_10016)[0];
 
-      return resolve(
-        result.issues.map((i) => {
-          return {
-            id: i.id,
-            key: i.key,
-            name: i.fields.summary,
-            description: i.fields.description,
-            stepsToReproduce: i.fields.customfield_10025,
-            expectedBehavior: i.fields.customfield_10026,
-            env: i.fields.customfield_10601 ? i.fields.customfield_10601.value : null,
-            severity: i.fields.customfield_10400 ? i.fields.customfield_10400.value : null,
-            attachments: !(i.fields.attachment) ? null : i.fields.attachment.map((a) => a.content)
-          }
-        })
-      );
-    });
+            return {
+              id: i.id,
+              key: i.key,
+              name: i.fields.summary,
+              description: i.fields.description,
+              stepsToReproduce: i.fields.customfield_10025,
+              expectedBehavior: i.fields.customfield_10026,
+              env: i.fields.customfield_10601 ? i.fields.customfield_10601.value : null,
+              severity: i.fields.customfield_10400 ? i.fields.customfield_10400.value : null,
+              attachments: !(i.fields.attachment) ? null : i.fields.attachment.map((a) => a.content),
+              epic: bugEpic ? bugEpic.name : null
+            }
+          })
+        );
+      });
+    })
   })
 }
 
