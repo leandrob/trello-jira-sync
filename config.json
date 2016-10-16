@@ -1,0 +1,18 @@
+{
+  "credentials": {
+    "trello": {
+      "key": "",
+      "token": ""
+    },
+    "jira": {
+      "domain": "",
+      "user": "",
+      "pass": ""
+    }
+  },
+
+  "projects": {
+    "UI": { "trello": "", "jira": "" },
+    "Core": { "trello": "", "jira": "" }
+  }
+}
