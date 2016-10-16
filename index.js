@@ -15,7 +15,6 @@ sync(current.trello, current.jira)
 .then((e) => console.log('\n\nBe happy!'.green))
 .catch((e) => { console.log(JSON.strigify(e)); })
 
-// 1.0 Sync Epics
 function sync(trelloBoard, jiraProject) {
   console.log('1. Syncing Labels to Epics.'.cyan);
   return syncEpics(trelloBoard, jiraProject).then(() => {
