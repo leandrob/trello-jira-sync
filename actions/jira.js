@@ -136,6 +136,31 @@ api.getBugs = function (project) {
   })
 }
 
+api.getStoriesByKeys = function (keys) {
+  return new Promise(function (resolve, reject) {
+    jira.searchJira('key in (' + keys.join(',') + ')', {}, function (err, result) {
+      if (err) {
+        return reject(err);
+      }
+
+      if (!result || !result.issues || result.issues.lenght === 0) {
+        return reject('No stories where found!');
+      }
+
+      return resolve(
+        result.issues.map((i) => {
+          return {
+            id: i.id,
+            key: i.key,
+            name: i.fields.summary,
+            status: i.fields.status.name
+          }
+        })
+      );
+    });
+  });
+}
+
 function getUpdateByTransition (name) {
   switch (name.toLowerCase()) {
     case 'start progress': return { "transition": { "id": "4" } };
