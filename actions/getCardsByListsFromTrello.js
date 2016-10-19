@@ -1,7 +1,6 @@
 'use strict';
 const trello = require('./trello');
 
-// this is not by board, this is by list!
 module.exports = function (trelloBoardId, lists) {
   var p = lists.map((listName) => trello.getCardsByList(trelloBoardId, listName));
 
