@@ -161,6 +161,18 @@ api.getStoriesByKeys = function (keys) {
   });
 }
 
+api.addComment = function (storyKey, comment) {
+  return new Promise((resolve, reject) => {
+    jira.addComment(storyKey, comment, function (err, result) {
+      if (err) {
+        return reject(err);
+      }
+
+      return resolve(result);
+    });
+  });
+}
+
 function getUpdateByTransition (name) {
   switch (name.toLowerCase()) {
     case 'start progress': return { "transition": { "id": "4" } };

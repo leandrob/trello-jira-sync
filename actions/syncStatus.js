@@ -2,6 +2,7 @@
 require('colors');
 const getCardsByListsFromTrello = require('./getCardsByListsFromTrello');
 const transitionStoriesInJira = require('./transitionStoriesInJira');
+const addCommentToStoriesInJira = require('./addCommentToStoriesInJira');
 const jira = require('./jira');
 
 const transitionsMap = {
@@ -12,7 +13,7 @@ const transitionsMap = {
   'close': 'closed'
 }
 
-module.exports = function (trelloBoard, jiraProject, lists, transition) {
+module.exports = function (trelloBoard, jiraProject, lists, transition, comment) {
   return getCardsByListsFromTrello(trelloBoard, lists)
     .then((cards) => {
       if (cards.length === 0) {
@@ -40,7 +41,9 @@ module.exports = function (trelloBoard, jiraProject, lists, transition) {
         console.log('Trying to update all of them in jira...');
 
         return transitionStoriesInJira(jiraProject, withNewStatus.map((s) => s.key), transition).then((storiesUpdated) => {
-            console.log((storiesUpdated + ' cards updated!').green);
+            return addCommentToStoriesInJira(withNewStatus.map((s) => s.key), comment).then(() => {
+                console.log((storiesUpdated + ' cards updated!').green);
+            })
         });
       })
     })

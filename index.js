@@ -36,22 +36,22 @@ function sync(trelloBoard, jiraProject) {
     })
     .then(() => {
       console.log('\n4. Syncing Stories in progress.'.cyan);
-      return syncStatus(trelloBoard, jiraProject, ['In Progress', 'Blocked', 'Ready to Merge', 'Deployed to Dev'], 'Start Progress');
+      return syncStatus(trelloBoard, jiraProject, ['In Progress', 'Blocked', 'Ready to Merge', 'Deployed to Dev'], 'Start Progress', 'Progress started.');
     })
     .then(() => {
       console.log('\n5. Syncing Stories Build Needed.'.cyan);
-      return syncStatus(trelloBoard, jiraProject, ['Ready for QA'], 'Build Needed');
+      return syncStatus(trelloBoard, jiraProject, ['Ready for QA'], 'Build Needed', 'Dev finished. The story is ready for QA deployment.');
     })
     .then(() => {
       console.log('\n6. Syncing Stories QA in Progress.'.cyan);
-      return syncStatus(trelloBoard, jiraProject, ['Deployed to QA'], 'QA in Progress');
+      return syncStatus(trelloBoard, jiraProject, ['Deployed to QA'], 'QA in Progress', 'Story deployed in QA, ready for testing. ');
     })
     .then(() => {
       console.log('\n7. Syncing Stories Resolve.'.cyan);
-      return syncStatus(trelloBoard, jiraProject, ['Ready to Stage'], 'Resolve');
+      return syncStatus(trelloBoard, jiraProject, ['Ready to Stage'], 'Resolve', 'QA approved, ready for staging.');
     })
     .then(() => {
       console.log('\n8. Syncing Stories Closed.'.cyan);
-      return syncStatus(trelloBoard, jiraProject, ['Merged to Master'], 'Close');
+      return syncStatus(trelloBoard, jiraProject, ['Merged to Master'], 'Close', 'Merged to Master, deployed in staging, ready for production.');
     });
 }

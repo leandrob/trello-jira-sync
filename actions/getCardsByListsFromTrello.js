@@ -8,7 +8,7 @@ module.exports = function (trelloBoardId, lists) {
 
     return cards.reduce((a, b) => a.concat(b), [])
             .filter((card) => {
-              return card.name.match(/(.+-.+ -)/);
+              return card.name.match(/^(CP-|CCS-|RM-).*/);
             })
             .map((card) => {
               card.key = card.name.split(/ /)[0]
