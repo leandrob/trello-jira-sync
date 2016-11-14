@@ -2,7 +2,7 @@
 const trello = require('./trello');
 const jira = require('./jira');
 
-const blackList = [ 'Bug' ];
+const blackList = process.__config.ignoreEpics;
 
 module.exports = function (trelloBoardId, jiraProject) {
   return Promise.all([
