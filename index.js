@@ -36,7 +36,7 @@ function sync(trelloBoard, jiraProject) {
     })
     .then(() => {
       console.log('\n4. Syncing Stories in Backlog.'.cyan);
-      return syncStatus(trelloBoard, jiraProject, ['Backlog'], 'Backlog', 'Story added to the backlog.');
+      return syncStatus(trelloBoard, jiraProject, ['Bugs', 'Backlog'], 'Backlog', 'Story added to the backlog.');
     })
     .then(() => {
       console.log('\n5. Syncing Stories in Up Next.'.cyan);
