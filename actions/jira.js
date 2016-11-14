@@ -175,15 +175,26 @@ api.addComment = function (storyKey, comment) {
 
 function getUpdateByTransition (name) {
   switch (name.toLowerCase()) {
-    case 'start progress': return { "transition": { "id": "4" } };
+    case 'backlog': return { "transition": { "id": "11" } };
+    case 'to do': return { "transition": { "id": "21" } };
+    case 'in progress': return { "transition": { "id": "31" } };
+    case 'waiting on build': return { "transition": { "id": "41" } };
+    case 'deployed to dev': return { "transition": { "id": "51" } };
+    case 'ready for qa': return { "transition": { "id": "61" } };
+    case 'deployed to qa': return { "transition": { "id": "71" } };
+    case 'ready for staging': return { "transition": { "id": "81" } };
+    case 'deployed to staging': return { "transition": { "id": "91" } };
+    case 'resolved': return { "transition": { "id": "101" } };
+    case 'closed': return { "transition": { "id": "111" } };
 
-    case 'build needed': return { "transition": { "id": "711" }, "update": { "worklog": [{ "add": { "timeSpent": "1h" } } ] } };
-
-    case 'qa in progress': return { "transition": { "id": "721" } };
-
-    case 'resolve': return { "transition": { "id": "5" }, "update": { "worklog": [ { "add": { "timeSpent": "2m" } } ] } };
-
-    case 'close': return { "transition": { "id": "701" } };
+    //
+    // case 'build needed': return { "transition": { "id": "711" }, "update": { "worklog": [{ "add": { "timeSpent": "1h" } } ] } };
+    //
+    // case 'qa in progress': return { "transition": { "id": "721" } };
+    //
+    // case 'resolve': return { "transition": { "id": "5" }, "update": { "worklog": [ { "add": { "timeSpent": "2m" } } ] } };
+    //
+    // case 'close': return { "transition": { "id": "701" } };
 
     default:
       throw new Error('Unknown status.');
