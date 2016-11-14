@@ -14,5 +14,9 @@
   "projects": {
     "UI": { "trello": "", "jira": "" },
     "Core": { "trello": "", "jira": "" }
-  }
+  },
+  
+  "releaseManagent": "RM",
+
+  "ignoreEpics": [ "Bug" ]
 }
