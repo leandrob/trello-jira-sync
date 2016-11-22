@@ -63,15 +63,19 @@ function sync(trelloBoard, jiraProject) {
       return syncStatus(trelloBoard, jiraProject, ['Deployed to QA'], 'Deployed to QA', 'Deployed in QA environment, ready for testing.');
     })
     .then(() => {
-      console.log('\n10. Syncing Stories in Deployed to Stage.'.cyan);
+      console.log('\n10. Syncing Stories in Ready for Release.'.cyan);
+      return syncStatus(trelloBoard, jiraProject, ['Ready to Release'], 'Ready For Staging', 'Work finished, ready for release management.');
+    })
+    .then(() => {
+      console.log('\n11. Syncing Stories in Deployed to Stage.'.cyan);
       return syncStatus(trelloBoard, jiraProject, ['Deployed to Stage'], 'Deployed to Staging', 'Release deployed to staging.');
     })
     .then(() => {
-      console.log('\n11. Syncing Stories in Ready for Production.'.cyan);
+      console.log('\n12. Syncing Stories in Ready for Production.'.cyan);
       return syncStatus(trelloBoard, jiraProject, ['Ready for Production'], 'Resolved', 'Release approved in Staging, ready to production deploy.');
     })
     .then(() => {
-      console.log('\n12. Syncing Stories in Deployed to Production.'.cyan);
+      console.log('\n13. Syncing Stories in Deployed to Production.'.cyan);
       return syncStatus(trelloBoard, jiraProject, ['Deployed to Production'], 'Closed', 'Release deployed in production!.');
     });
 }
