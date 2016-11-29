@@ -104,7 +104,7 @@ api.getBugs = function (project) {
         'customfield_10016', //Epic
       ];
 
-      jira.searchJira('project="' + project + '" AND issuetype = "Bug" AND status = "Open"', { fields: fields }, function (err, result) {
+      jira.searchJira('project="' + project + '" AND issuetype = "Bug" AND status = "Backlog"', { fields: fields }, function (err, result) {
         if (err) {
           return reject(err);
         }
